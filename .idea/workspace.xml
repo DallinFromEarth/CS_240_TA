@@ -4,23 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7547bbbf-9dfc-4fe8-be58-456eec48f5b6" name="Changes" comment="updated chessboard toString to differentiate black and white pieces">
-      <change beforePath="$PROJECT_DIR$/shared/src/main/chess/ChessBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/chess/ChessGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/chess/ChessMove.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/chess/ChessPiece.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/chess/ChessPosition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/chess/InvalidMoveException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/TestFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/ChessBoardTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/ChessMoveTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/ChessPositionTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/chessPieceTests/BishopMoveTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/chessPieceTests/KingMoveTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/chessPieceTests/KnightMoveTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/chessPieceTests/PawnMoveTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/chessPieceTests/QueenMoveTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/passoffTests/chessTests/chessPieceTests/RookMoveTests.java" beforeDir="false" />
+    <list default="true" id="7547bbbf-9dfc-4fe8-be58-456eec48f5b6" name="Changes" comment="talked to the TAs, reset the project to the way i'm supposed to do it, and copied over my work in the Shared chess module.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +67,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.chess.ChessBoard">
+  <component name="RunManager" selected="JUnit.BishopMoveTests (1)">
     <configuration name="ChessBoard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chess" />
       <extension name="coverage">
@@ -114,6 +100,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BishopMoveTests (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shared" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.BishopMoveTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BishopMoveTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CS_240_TA" />
       <extension name="coverage">
@@ -129,29 +130,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BishopMoveTests.bishopMoveUntilEdge" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="CS_240_TA" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.BishopMoveTests" />
-      <option name="METHOD_NAME" value="bishopMoveUntilEdge" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BishopMoveTests (1)" />
         <item itemvalue="Application.chess.ChessBoard" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.BishopMoveTests" />
         <item itemvalue="Application.ChessBoard" />
-        <item itemvalue="JUnit.BishopMoveTests.bishopMoveUntilEdge" />
       </list>
     </recent_temporary>
   </component>
@@ -241,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1704736189702</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="talked to the TAs, reset the project to the way i'm supposed to do it, and copied over my work in the Shared chess module.">
+      <created>1704749237664</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1704749237664</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -271,6 +263,7 @@
     <MESSAGE value="got the ChessBoard defined and ChessBoard.toString implemented" />
     <MESSAGE value="implemented addPiece in the ChessBoard" />
     <MESSAGE value="updated chessboard toString to differentiate black and white pieces" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated chessboard toString to differentiate black and white pieces" />
+    <MESSAGE value="talked to the TAs, reset the project to the way i'm supposed to do it, and copied over my work in the Shared chess module." />
+    <option name="LAST_COMMIT_MESSAGE" value="talked to the TAs, reset the project to the way i'm supposed to do it, and copied over my work in the Shared chess module." />
   </component>
 </project>
