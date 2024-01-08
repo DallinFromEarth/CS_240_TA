@@ -10,7 +10,12 @@ import java.util.Collection;
  */
 public class ChessPiece {
 
+    private PieceType type;
+    private ChessGame.TeamColor pieceColor;
+
     public ChessPiece(ChessGame.TeamColor pieceColor, PieceType type) {
+        this.type = type;
+        this.pieceColor = pieceColor;
     }
 
     /**
@@ -52,5 +57,30 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     *
+     * @return the piece type as a string
+     */
+    @Override
+    public String toString() {
+        return type.toString();
+    }
+
+    /**
+     *
+     * @return a string of one character to indicate the piece type
+     */
+    public String toSymbol() {
+        switch (type) {
+            case KING -> { return "K"; }
+            case QUEEN -> { return "q"; }
+            case KNIGHT -> { return "h"; }
+            case BISHOP -> { return "b"; }
+            case ROOK -> { return "r"; }
+            case PAWN -> { return "p"; }
+            default -> { return "?"; }
+        }
     }
 }
