@@ -30,7 +30,7 @@ public class ChessBoard {
         ChessPosition test2 = new ChessPosition(2,'g');
         ChessPosition test3 = new ChessPosition(8,8);
         gameBoard.addPiece(test1,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
-        gameBoard.addPiece(test2,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK));
+        gameBoard.addPiece(test2,new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
         gameBoard.addPiece(test3,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
 //        gameBoard.board[0][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
 //        gameBoard.board[1][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);

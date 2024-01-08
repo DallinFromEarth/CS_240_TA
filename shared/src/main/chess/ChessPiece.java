@@ -36,7 +36,7 @@ public class ChessPiece {
      * @return Which team this chess piece belongs to
      */
     public ChessGame.TeamColor getTeamColor() {
-        throw new RuntimeException("Not implemented");
+        return pieceColor;
     }
 
     /**
@@ -44,7 +44,7 @@ public class ChessPiece {
      * @return which type of chess piece this piece is
      */
     public PieceType getPieceType() {
-        throw new RuntimeException("Not implemented");
+        return type;
     }
 
     /**
@@ -61,11 +61,15 @@ public class ChessPiece {
 
     /**
      *
-     * @return the piece type as a string
+     * @return the piece type and color as a string
      */
     @Override
     public String toString() {
-        return type.toString();
+        StringBuilder builder = new StringBuilder();
+        builder.append(pieceColor.toString());
+        builder.append(" ");
+        builder.append(type.toString());
+        return builder.toString();
     }
 
     /**
@@ -73,14 +77,22 @@ public class ChessPiece {
      * @return a string of one character to indicate the piece type
      */
     public String toSymbol() {
+        String symbol;
         switch (type) {
-            case KING -> { return "K"; }
-            case QUEEN -> { return "q"; }
-            case KNIGHT -> { return "h"; }
-            case BISHOP -> { return "b"; }
-            case ROOK -> { return "r"; }
-            case PAWN -> { return "p"; }
-            default -> { return "?"; }
+            case KING -> { symbol =  "K"; }
+            case QUEEN -> { symbol = "Q"; }
+            case KNIGHT -> { symbol = "H"; }
+            case BISHOP -> { symbol = "B"; }
+            case ROOK -> { symbol = "R"; }
+            case PAWN -> { symbol = "P"; }
+            default -> { symbol = "?"; }
         }
+
+        //we need some way to distinguish black and white in the toString board method
+        //so white pieces will be uppercase, black pieces lowercase
+        if (pieceColor == ChessGame.TeamColor.BLACK) {
+            symbol = symbol.toLowerCase();
+        }
+        return symbol;
     }
 }
