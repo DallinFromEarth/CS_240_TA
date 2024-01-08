@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7547bbbf-9dfc-4fe8-be58-456eec48f5b6" name="Changes" comment="talked to the TAs, reset the project to the way i'm supposed to do it, and copied over my work in the Shared chess module.">
+    <list default="true" id="7547bbbf-9dfc-4fe8-be58-456eec48f5b6" name="Changes" comment="filled out ChessMove.java and updated the README.md for the setup">
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/target/classes/chess/ChessBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/chess/ChessBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/target/classes/chess/ChessMove.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/chess/ChessMove.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/target/classes/chess/ChessPiece$PieceType.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/chess/ChessPiece$PieceType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/target/classes/chess/ChessPiece.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/chess/ChessPiece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/target/classes/chess/ChessPosition.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/chess/ChessPosition.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,15 +76,10 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BishopMoveTests (1)">
-    <configuration name="ChessBoard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="chess" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="chess.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+  <component name="RunManager" selected="Application.Main (1)">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="shared" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -132,11 +136,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main (1)" />
         <item itemvalue="JUnit.BishopMoveTests (1)" />
         <item itemvalue="Application.chess.ChessBoard" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.BishopMoveTests" />
-        <item itemvalue="Application.ChessBoard" />
       </list>
     </recent_temporary>
   </component>
@@ -233,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1704749237664</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="filled out ChessMove.java and updated the README.md for the setup">
+      <created>1704750277323</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1704750277323</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -264,6 +275,18 @@
     <MESSAGE value="implemented addPiece in the ChessBoard" />
     <MESSAGE value="updated chessboard toString to differentiate black and white pieces" />
     <MESSAGE value="talked to the TAs, reset the project to the way i'm supposed to do it, and copied over my work in the Shared chess module." />
-    <option name="LAST_COMMIT_MESSAGE" value="talked to the TAs, reset the project to the way i'm supposed to do it, and copied over my work in the Shared chess module." />
+    <MESSAGE value="filled out ChessMove.java and updated the README.md for the setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="filled out ChessMove.java and updated the README.md for the setup" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

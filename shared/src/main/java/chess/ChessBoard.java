@@ -15,32 +15,15 @@ public class ChessBoard {
      * the first coordinate corresponds to the row number (minus 1)
      * the second coordinate corresponds to the col letter (a=0)
      */
-    public ChessPiece[][] board;
+    private ChessPiece[][] board;
     private final int BOARD_SIZE = 8;
 
-
-    public static void main(String[] args) {
-        ChessPiece test = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
-        System.out.println(test.toString());
-        System.out.println(test.toSymbol());
-        System.out.println("Test");
-        ChessBoard gameBoard = new ChessBoard();
-        System.out.println(gameBoard.toString());
-        ChessPosition test1 = new ChessPosition(1,'a');
-        ChessPosition test2 = new ChessPosition(2,'g');
-        ChessPosition test3 = new ChessPosition(8,8);
-        gameBoard.addPiece(test1,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
-        gameBoard.addPiece(test2,new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
-        gameBoard.addPiece(test3,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
-//        gameBoard.board[0][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
-//        gameBoard.board[1][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
-//        gameBoard.board[0][1] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN);
-        System.out.println(gameBoard.toString());
-    }
 
     public ChessBoard() {
         board = new ChessPiece[BOARD_SIZE][BOARD_SIZE];
     }
+
+    public int getBoardSize() { return BOARD_SIZE; }
 
     /**
      * Adds a chess piece to the chessboard
