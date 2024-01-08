@@ -11,9 +11,26 @@ public class ChessPosition {
     private int row;
     private int col;
 
+    /**
+     *
+     * @param row 1 codes for bottom row
+     * @param col 1 codes for left column
+     */
     public ChessPosition(int row, int col) {
         this.row = row;
         this.col = col;
+    }
+
+    /**
+     *
+     * @param row 1 codes for bottom row
+     * @param col 'a' codes for left column
+     */
+    public ChessPosition(int row, char col) {
+        this.row = row;
+        // this converts the character into the relative column number where the left column is 1
+        // since 'a' = 97
+        this.col = (int) col - 96;
     }
 
     /**
@@ -22,7 +39,7 @@ public class ChessPosition {
      * 1 codes for the bottom row
      */
     public int getRow() {
-        return row + 1;
+        return row;
     }
 
     /**
@@ -31,6 +48,6 @@ public class ChessPosition {
      * 1 codes for the left row
      */
     public int getColumn() {
-        return col + 1;
+        return col;
     }
 }

@@ -26,9 +26,15 @@ public class ChessBoard {
         System.out.println("Test");
         ChessBoard gameBoard = new ChessBoard();
         System.out.println(gameBoard.toString());
-        gameBoard.board[0][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
-        gameBoard.board[1][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
-        gameBoard.board[0][1] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN);
+        ChessPosition test1 = new ChessPosition(1,'a');
+        ChessPosition test2 = new ChessPosition(2,'g');
+        ChessPosition test3 = new ChessPosition(8,8);
+        gameBoard.addPiece(test1,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
+        gameBoard.addPiece(test2,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK));
+        gameBoard.addPiece(test3,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
+//        gameBoard.board[0][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
+//        gameBoard.board[1][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
+//        gameBoard.board[0][1] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN);
         System.out.println(gameBoard.toString());
     }
 
@@ -44,7 +50,9 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        throw new RuntimeException("Not implemented");
+        int row = position.getRow() - 1;
+        int col = position.getColumn() - 1;
+        board[row][col] = piece;
     }
 
     /**
