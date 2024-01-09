@@ -164,6 +164,15 @@ public class ChessPiece {
         moveHelper(board, myPosition, possibleMoves, 0,-1);
     }
 
+    private void addKnightMoves(ChessBoard board, ChessPosition myPosition, HashSet<ChessMove> possibleMoves) {
+        final int boardBoundary = board.getBoardSize();
+
+        int row = myPosition.getRow();
+        int col = myPosition.getColumn();
+
+
+    }
+
     /**
      * Adds ChessMove objects to possibleMoves that the piece can move to, continuously moving in the direction indicated by the rowIncrement and colIncrement
      * @param board
@@ -174,7 +183,7 @@ public class ChessPiece {
      */
     private void moveHelper(ChessBoard board, ChessPosition myPosition, HashSet<ChessMove> possibleMoves, int rowIncrement, int colIncrement) {
         //this number is the last pos
-        final int endRowCol = board.getBoardSize() - 1;
+        final int boardBoundary = board.getBoardSize();
 
         int row = myPosition.getRow();
         int col = myPosition.getColumn();
@@ -184,16 +193,19 @@ public class ChessPiece {
             row += rowIncrement;
             col += colIncrement;
 
-            if (row < 1 | row > endRowCol) { return; } //quit loop if the new position to check is below the first row or above the top row
-            if (col < 1 | col > endRowCol) { return; } //quit loop if the new position to check is below the first column or above the top column
+            if (row < 1 | row > boardBoundary) { return; } //quit loop if the new position to check is below the first row or above the top row
+            if (col < 1 | col > boardBoundary) { return; } //quit loop if the new position to check is below the first column or above the top column
 
             ChessPosition check = new ChessPosition(row, col);
 
             //if the position on the board at position "check" is empty (i.e. null) then for this function it is a valid move
             if (board.getPiece(check) == null) {
                 possibleMoves.add(new ChessMove(myPosition, check,null));
-            } else {
-                return; //exit loop once you run into a piece
+            } else { //what to do once you run into another piece
+                if (board.getPiece(check).pieceColor != pieceColor) { //if that piece is the other team
+                    possibleMoves.add(new ChessMove(myPosition, check, null)); //this gives you the option to capture
+                }
+                return; //exit loop once you run into or capture a piece
             }
         }
     }

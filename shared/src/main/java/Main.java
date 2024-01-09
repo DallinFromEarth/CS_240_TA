@@ -12,10 +12,12 @@ public class Main {
         System.out.println(gameBoard.toString());
         ChessPosition test1 = new ChessPosition(1,'a');
         ChessPosition test2 = new ChessPosition(3,'c');
-        ChessPosition test3 = new ChessPosition(8,8);
+        ChessPosition test3 = new ChessPosition(6,8);
+        ChessPosition test4 = new ChessPosition(5,'d');
         gameBoard.addPiece(test1,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
         gameBoard.addPiece(test2,new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
         gameBoard.addPiece(test3,new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
+        gameBoard.addPiece(test4,new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT));
 //        gameBoard.board[0][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
 //        gameBoard.board[1][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
 //        gameBoard.board[0][1] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN);
