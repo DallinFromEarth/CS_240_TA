@@ -11,6 +11,12 @@ I'm a new TA for CS 240, and they changed the course project since I took the cl
 
 ### Phase 0
 - Just define the board first
+- Queen/Rook, and Queen/Bishop can share some logic
+- I did functions that calculate vertical/horizontal moves, then another that did diagonal moves
+- Make sure you're correctly calculating where the edge of the board is
+- The interfaces deal in base 1, not base 0
+- Would have probably been cleaner code to make a function that checks if the new move is on the board, and another function to check if the new move is running into another piece or capturing
+- If you want to check if the space you're looking at is empty or an enemy piece in one if statement, check if the space is null first, the use double pipes "||" then check the color. Single pipe will throw an error
 - 
 
 

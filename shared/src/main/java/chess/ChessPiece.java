@@ -70,6 +70,9 @@ public class ChessPiece {
         if (type == PieceType.KNIGHT) {
             addKnightMoves(board, myPosition, possibleMoves);
             return possibleMoves;
+        } if (type == PieceType.KING) {
+            addKingMoves(board, myPosition, possibleMoves);
+            return possibleMoves;
         } if (type == PieceType.QUEEN | type == PieceType.BISHOP) {
             addDiagonalMoves(board, myPosition, possibleMoves);
         } if (type == PieceType.QUEEN | type == PieceType.ROOK) {
@@ -169,11 +172,10 @@ public class ChessPiece {
 
     private void addKnightMoves(ChessBoard board, ChessPosition myPosition, HashSet<ChessMove> possibleMoves) {
         final int boardBoundary = board.getBoardSize();
-
         final int row = myPosition.getRow();
         final int col = myPosition.getColumn();
 
-        //I stole this idea from ChatGPT
+        //I stole this idea from ChatGPT and it seems to work. (I stole the r/c loops -2:2 and saying its a move if they add to 3. The rest is mine)
         for (int r = -2; r < 3; r++) {
             for (int c = -2; c < 3; c++) {
                 if (Math.abs(r) + Math.abs(c) == 3) { //if that move is in the shape of a knight move
@@ -188,7 +190,25 @@ public class ChessPiece {
                 }
             }
         }
+    }
 
+    private void addKingMoves(ChessBoard board, ChessPosition myPosition, HashSet<ChessMove> possibleMoves) {
+        final int boardBoundary = board.getBoardSize();
+        final int row = myPosition.getRow();
+        final int col = myPosition.getColumn();
+
+        for (int r = -1; r < 2; r++) {
+            for (int c = -1; c < 2; c++) {
+                int newRow = r + row;
+                int newCol = c + col;
+                if ( !( (newRow < 1) | (newRow > boardBoundary) | (newCol < 1) | (newCol > boardBoundary) ) ) { //if that move stays on the board. Basically asks if it goes off any edge, and if not, we continue
+                    ChessPosition check = new ChessPosition( newRow, newCol);
+                    if ( (board.getPiece(check) == null) || (board.getPiece(check).getTeamColor() != pieceColor) ) { //if the piece at position "check" is empty OR is on the other team
+                        possibleMoves.add(new ChessMove(myPosition, check, null));
+                    }
+                }
+            }
+        }
     }
 
     /**
