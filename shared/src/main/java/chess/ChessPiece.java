@@ -69,17 +69,17 @@ public class ChessPiece {
 
         if (type == PieceType.KNIGHT) {
             addKnightMoves(board, myPosition, possibleMoves);
-            return possibleMoves;
-        } if (type == PieceType.KING) {
+        } else if (type == PieceType.KING) {
             addKingMoves(board, myPosition, possibleMoves);
-            return possibleMoves;
-        } if (type == PieceType.QUEEN | type == PieceType.BISHOP) {
-            addDiagonalMoves(board, myPosition, possibleMoves);
-        } if (type == PieceType.QUEEN | type == PieceType.ROOK) {
-            addInLineMoves(board, myPosition, possibleMoves);
+        } else if (type == PieceType.PAWN) {
+            addPawnMoves(board, myPosition, possibleMoves);
+        } else {
+            if (type == PieceType.QUEEN | type == PieceType.BISHOP) {
+                addDiagonalMoves(board, myPosition, possibleMoves);
+            } if (type == PieceType.QUEEN | type == PieceType.ROOK) {
+                addInLineMoves(board, myPosition, possibleMoves);
+            }
         }
-        //TODO: add moves for Pawns, and Kings
-
 
         return possibleMoves;
     }
@@ -179,10 +179,8 @@ public class ChessPiece {
         for (int r = -2; r < 3; r++) {
             for (int c = -2; c < 3; c++) {
                 if (Math.abs(r) + Math.abs(c) == 3) { //if that move is in the shape of a knight move
-                    int newRow = r + row;
-                    int newCol = c + col;
-                    if ( !( (newRow < 1) | (newRow > boardBoundary) | (newCol < 1) | (newCol > boardBoundary) ) ) { //if that move stays on the board. Basically asks if it goes off any edge, and if not, we continue
-                        ChessPosition check = new ChessPosition( (newRow), (newCol) );
+                    ChessPosition check = new ChessPosition( (r + row), (c + col));
+                    if ( isOnBoard(board, check) ) { //if that move stays on the board
                         if ( (board.getPiece(check) == null) || (board.getPiece(check).getTeamColor() != pieceColor) ) { //if the piece at position "check" is empty OR is on the other team
                             possibleMoves.add(new ChessMove(myPosition, check, null));
                         }
@@ -193,22 +191,42 @@ public class ChessPiece {
     }
 
     private void addKingMoves(ChessBoard board, ChessPosition myPosition, HashSet<ChessMove> possibleMoves) {
-        final int boardBoundary = board.getBoardSize();
         final int row = myPosition.getRow();
         final int col = myPosition.getColumn();
 
         for (int r = -1; r < 2; r++) {
             for (int c = -1; c < 2; c++) {
-                int newRow = r + row;
-                int newCol = c + col;
-                if ( !( (newRow < 1) | (newRow > boardBoundary) | (newCol < 1) | (newCol > boardBoundary) ) ) { //if that move stays on the board. Basically asks if it goes off any edge, and if not, we continue
-                    ChessPosition check = new ChessPosition( newRow, newCol);
+                ChessPosition check = new ChessPosition( (r + row), (c + col));
+                if ( isOnBoard(board, check) ) { //if that move stays on the board
                     if ( (board.getPiece(check) == null) || (board.getPiece(check).getTeamColor() != pieceColor) ) { //if the piece at position "check" is empty OR is on the other team
                         possibleMoves.add(new ChessMove(myPosition, check, null));
                     }
                 }
             }
         }
+    }
+
+    private void addPawnMoves(ChessBoard board, ChessPosition myPosition, HashSet<ChessMove> possibleMoves) {
+        final int boardBoundary = board.getBoardSize();
+        final int row = myPosition.getRow();
+        final int col = myPosition.getColumn();
+
+        //set to 1 for white, to move up. Set to -1 for black, to move down
+        int moveDirection;
+        if (pieceColor == ChessGame.TeamColor.WHITE) { moveDirection = 1; }
+        else if (pieceColor == ChessGame.TeamColor.BLACK) { moveDirection = -1; }
+        else { throw new RuntimeException("invalid TeamColor"); }
+        throw new RuntimeException("NOT DONE");
+    }
+
+    /**
+     * Checks if the specified position is on the board
+     * @param board
+     * @param position
+     * @return
+     */
+    private boolean isOnBoard(ChessBoard board, ChessPosition position) {
+        return !( (position.getRow() < 1) | (position.getRow() > board.getBoardSize()) | (position.getColumn() < 1) | (position.getColumn() > board.getBoardSize()) );
     }
 
     /**
@@ -230,13 +248,12 @@ public class ChessPiece {
             //step once in the direction
             row += rowIncrement;
             col += colIncrement;
-
-            if (row < 1 | row > boardBoundary) { return; } //quit loop if the new position to check is below the first row or above the top row
-            if (col < 1 | col > boardBoundary) { return; } //quit loop if the new position to check is below the first column or above the top column
-
             ChessPosition check = new ChessPosition(row, col);
 
-            //if the position on the board at position "check" is empty (i.e. null) then for this function it is a valid move
+            //if we have stepped off the board, return
+            if ( !isOnBoard(board, check) ) { return; }
+
+                //if the position on the board at position "check" is empty (i.e. null) then for this function it is a valid move
             if (board.getPiece(check) == null) {
                 possibleMoves.add(new ChessMove(myPosition, check,null));
             } else { //what to do once you run into another piece
