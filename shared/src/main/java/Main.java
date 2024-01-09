@@ -10,7 +10,7 @@ public class Main {
         System.out.println("Test");
         ChessBoard gameBoard = new ChessBoard();
         System.out.println(gameBoard.toString());
-        ChessPosition test1 = new ChessPosition(1,'a');
+        ChessPosition test1 = new ChessPosition(6,'f');
         ChessPosition test2 = new ChessPosition(3,'c');
         ChessPosition test3 = new ChessPosition(6,8);
         ChessPosition test4 = new ChessPosition(5,'d');
@@ -22,6 +22,6 @@ public class Main {
 //        gameBoard.board[1][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
 //        gameBoard.board[0][1] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN);
         System.out.println(gameBoard.toString());
-        gameBoard.getPiece(new ChessPosition(3,'c')).pieceMoves(gameBoard, new ChessPosition(3,'c'));
+        gameBoard.getPiece(test4).pieceMoves(gameBoard, test4);
     }
 }
