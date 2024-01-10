@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -179,10 +180,10 @@ public class ChessPiece {
         for (int r = -2; r < 3; r++) {
             for (int c = -2; c < 3; c++) {
                 if (Math.abs(r) + Math.abs(c) == 3) { //if that move is in the shape of a knight move
-                    ChessPosition check = new ChessPosition( (r + row), (c + col));
-                    if ( isOnBoard(board, check) ) { //if that move stays on the board
-                        if ( (board.getPiece(check) == null) || (board.getPiece(check).getTeamColor() != pieceColor) ) { //if the piece at position "check" is empty OR is on the other team
-                            possibleMoves.add(new ChessMove(myPosition, check, null));
+                    ChessPosition current = new ChessPosition( (r + row), (c + col));
+                    if ( isOnBoard(board, current) ) { //if that move stays on the board
+                        if ( (board.getPiece(current) == null) || (board.getPiece(current).getTeamColor() != pieceColor) ) { //if the piece at position "current" is empty OR is on the other team
+                            possibleMoves.add(new ChessMove(myPosition, current, null));
                         }
                     }
                 }
@@ -196,10 +197,10 @@ public class ChessPiece {
 
         for (int r = -1; r < 2; r++) {
             for (int c = -1; c < 2; c++) {
-                ChessPosition check = new ChessPosition( (r + row), (c + col));
-                if ( isOnBoard(board, check) ) { //if that move stays on the board
-                    if ( (board.getPiece(check) == null) || (board.getPiece(check).getTeamColor() != pieceColor) ) { //if the piece at position "check" is empty OR is on the other team
-                        possibleMoves.add(new ChessMove(myPosition, check, null));
+                ChessPosition current = new ChessPosition( (r + row), (c + col));
+                if ( isOnBoard(board, current) ) { //if that move stays on the board
+                    if ( (board.getPiece(current) == null) || (board.getPiece(current).getTeamColor() != pieceColor) ) { //if the piece at position "current" is empty OR is on the other team
+                        possibleMoves.add(new ChessMove(myPosition, current, null));
                     }
                 }
             }
@@ -211,12 +212,92 @@ public class ChessPiece {
         final int row = myPosition.getRow();
         final int col = myPosition.getColumn();
 
-        //set to 1 for white, to move up. Set to -1 for black, to move down
+        //set to 1 for white, to move up. Set to -1 for black, to move down. (moving rows)
         int moveDirection;
         if (pieceColor == ChessGame.TeamColor.WHITE) { moveDirection = 1; }
         else if (pieceColor == ChessGame.TeamColor.BLACK) { moveDirection = -1; }
         else { throw new RuntimeException("invalid TeamColor"); }
-        throw new RuntimeException("NOT DONE");
+
+        for (int c = -1; c < 2; c++) { //only iterate through the columns: one to the left, the current, then one to the right
+            ChessPosition current = new ChessPosition( (row + moveDirection), (col + c) );
+
+            if (isOnBoard(board, current)) {
+                boolean promotePawn = ( current.getRow() == whatIsLastRow(pieceColor) );
+
+                switch (c) {
+                    case -1, 1 -> { //this checks the spaces to the sides
+                        if (board.getPiece(current) != null) { //You can only move sideways if theres a piece there
+                            if (board.getPiece(current).getTeamColor() != pieceColor) { //if the piece is on the other team
+                                if (promotePawn) {
+                                    addPawnPromoteMoves(myPosition, current, possibleMoves);
+                                } else {
+                                    possibleMoves.add(new ChessMove(myPosition, current, null));
+                                }
+                            }
+                        }
+                    }
+                    case 0 -> { //this checks the space right ahead
+                        if (board.getPiece(current) == null) { //if the space is empty or the piece there is on the other team
+                            if (promotePawn) {
+                                addPawnPromoteMoves(myPosition, current, possibleMoves);
+                            }else {
+                                possibleMoves.add(new ChessMove(myPosition, current, null));
+                            }
+                        }
+                    }
+                    default -> throw new RuntimeException("Something unexpected");
+                }
+            }
+
+            //give the pawn starting double move powers
+            if (row == whatIsStartingPawnRow(pieceColor)) {
+                if ( board.getPiece(new ChessPosition(row + moveDirection, col)) == null ) {// if the space in front of you is empty
+                    ChessPosition doubleStep = new ChessPosition( ( row + (moveDirection * 2) ), col );
+                    if ( board.getPiece(doubleStep) == null) { //if the space two spaces in front of you is empty
+                        possibleMoves.add(new ChessMove(myPosition, doubleStep, null));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * loads the passed in HashSet with ChessMove objects with the passed in ChessPositions with promotion to all possible types
+     * @param startPosition
+     * @param endPosition
+     * @param possibleMoves
+     */
+    private void addPawnPromoteMoves(ChessPosition startPosition, ChessPosition endPosition, HashSet<ChessMove> possibleMoves) {
+        PieceType typeList[] = new PieceType[] { PieceType.QUEEN, PieceType.ROOK, PieceType.BISHOP, PieceType.KNIGHT };
+        for (PieceType type : typeList) {
+            possibleMoves.add(new ChessMove(startPosition, endPosition, type));
+        }
+    }
+
+    /**
+     * returns the last row for a pawn
+     * @param color
+     * @return 8 for white, 1 for black
+     */
+    private int whatIsLastRow(ChessGame.TeamColor color) {
+        switch (color) {
+            case BLACK -> { return 1; }
+            case WHITE -> { return 8; }
+            default -> throw new RuntimeException("Unknown color");
+        }
+    }
+
+    /**
+     * returns the row that the pawn starts on for the specified color
+     * @param color
+     * @return 2 for white, 7 for black
+     */
+    private int whatIsStartingPawnRow(ChessGame.TeamColor color) {
+        switch (color) {
+            case BLACK -> { return 7; }
+            case WHITE -> { return 2; }
+            default -> throw new RuntimeException("Unknown color");
+        }
     }
 
     /**
@@ -248,17 +329,17 @@ public class ChessPiece {
             //step once in the direction
             row += rowIncrement;
             col += colIncrement;
-            ChessPosition check = new ChessPosition(row, col);
+            ChessPosition current = new ChessPosition(row, col);
 
             //if we have stepped off the board, return
-            if ( !isOnBoard(board, check) ) { return; }
+            if ( !isOnBoard(board, current) ) { return; }
 
-                //if the position on the board at position "check" is empty (i.e. null) then for this function it is a valid move
-            if (board.getPiece(check) == null) {
-                possibleMoves.add(new ChessMove(myPosition, check,null));
+                //if the position on the board at position "current" is empty (i.e. null) then for this function it is a valid move
+            if (board.getPiece(current) == null) {
+                possibleMoves.add(new ChessMove(myPosition, current,null));
             } else { //what to do once you run into another piece
-                if (board.getPiece(check).pieceColor != pieceColor) { //if that piece is the other team
-                    possibleMoves.add(new ChessMove(myPosition, check, null)); //this gives you the option to capture
+                if (board.getPiece(current).pieceColor != pieceColor) { //if that piece is the other team
+                    possibleMoves.add(new ChessMove(myPosition, current, null)); //this gives you the option to capture
                 }
                 return; //exit loop once you run into or capture a piece
             }

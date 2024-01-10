@@ -1,6 +1,11 @@
 package chess;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Objects;
+
+import static chess.ChessGame.TeamColor.BLACK;
+import static chess.ChessGame.TeamColor.WHITE;
 
 /**
  * A chessboard that can hold and rearrange chess pieces.
@@ -20,7 +25,7 @@ public class ChessBoard {
 
 
     public ChessBoard() {
-        board = new ChessPiece[BOARD_SIZE][BOARD_SIZE];
+        resetBoard();
     }
 
     public int getBoardSize() { return BOARD_SIZE; }
@@ -58,8 +63,52 @@ public class ChessBoard {
      * SIGNATURE DEFINED BY COURSE!
      */
     public void resetBoard() {
-        throw new RuntimeException("Not implemented");
+        board = new ChessPiece[BOARD_SIZE][BOARD_SIZE];
+
+        loadPawnsToBoard(WHITE, 2);
+        loadRooksToBoard(WHITE, 1);
+        loadKnightsToBoard(WHITE,1);
+        loadBishopsToBoard(WHITE, 1);
+
+        loadPawnsToBoard(BLACK,7);
+        loadRooksToBoard(BLACK,8);
+        loadKnightsToBoard(BLACK,8);
+        loadBishopsToBoard(BLACK, 8);
+
+        loadRoyalty();
     }
+
+    /**
+     * ONLY CALL FROM RESETBOARD()
+     * fills the pawns in their starting rows on the board
+     * @param color
+     * @param row
+     */
+    private void loadPawnsToBoard(ChessGame.TeamColor color, int row) {
+        for (int col = 1; col <= BOARD_SIZE; col++) {
+            addPiece(new ChessPosition(row, col), new ChessPiece(color, ChessPiece.PieceType.PAWN));
+        }
+    }
+
+    private void loadKnightsToBoard(ChessGame.TeamColor color, int row) {
+        addPiece(new ChessPosition(row, 2), new ChessPiece(color, ChessPiece.PieceType.KNIGHT));
+        addPiece(new ChessPosition(row, 7), new ChessPiece(color, ChessPiece.PieceType.KNIGHT));
+    }
+    private void loadRooksToBoard(ChessGame.TeamColor color, int row) {
+        addPiece(new ChessPosition(row, 1), new ChessPiece(color, ChessPiece.PieceType.ROOK));
+        addPiece(new ChessPosition(row, 8), new ChessPiece(color, ChessPiece.PieceType.ROOK));
+    }
+    private void loadBishopsToBoard(ChessGame.TeamColor color, int row) {
+        addPiece(new ChessPosition(row, 3), new ChessPiece(color, ChessPiece.PieceType.BISHOP));
+        addPiece(new ChessPosition(row, 6), new ChessPiece(color, ChessPiece.PieceType.BISHOP));
+    }
+    private void loadRoyalty() {
+        addPiece(new ChessPosition(1, 'd'), new ChessPiece(WHITE, ChessPiece.PieceType.QUEEN));
+        addPiece(new ChessPosition(1, 'e'), new ChessPiece(WHITE, ChessPiece.PieceType.KING));
+        addPiece(new ChessPosition(8, 'd'), new ChessPiece(BLACK, ChessPiece.PieceType.QUEEN));
+        addPiece(new ChessPosition(8, 'e'), new ChessPiece(BLACK, ChessPiece.PieceType.KING));
+    }
+
 
     @Override
     public String toString() {
@@ -98,5 +147,32 @@ public class ChessBoard {
             builder.append(" ");
         }
        return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessBoard that = (ChessBoard) o;
+
+        for (int i = 0; i < getBoardSize(); i++) {
+            for (int j =0; j < getBoardSize(); j++) {
+                ChessPosition current = new ChessPosition(i+1, j+1);
+                ChessPiece thisPiece = getPiece(current);
+                ChessPiece thatPiece = that.getPiece(current);
+                if (thisPiece == null && thatPiece == null) { continue; }
+                if ( !thisPiece.equals(thatPiece) ) {
+                    return false;
+                }
+            }
+        }
+        return BOARD_SIZE == that.BOARD_SIZE && Arrays.deepEquals(board, that.board);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(BOARD_SIZE);
+        result = 31 * result + Arrays.hashCode(board);
+        return result;
     }
 }
