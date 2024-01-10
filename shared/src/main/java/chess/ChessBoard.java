@@ -25,7 +25,7 @@ public class ChessBoard {
 
 
     public ChessBoard() {
-        resetBoard();
+        board = new ChessPiece[BOARD_SIZE][BOARD_SIZE];
     }
 
     public int getBoardSize() { return BOARD_SIZE; }

@@ -18,6 +18,7 @@ I'm a new TA for CS 240, and they changed the course project since I took the cl
 - Would have probably been cleaner code to make a function that checks if the new move is on the board, and another function to check if the new move is running into another piece or capturing
 - If you want to check if the space you're looking at is empty or an enemy piece in one if statement, check if the space is null first, the use double pipes "||" then check the color. Single pipe will throw an error
 - If things look the same, but the passoff tests aren't saying theyre the same, make sure you overrode equals() and hash()
+- THE GAMEBOARD CONSTRUCTOR SHOULD NOT PUT ANY PIECES ON THE BOARD! Only the function resetBoard() should set all the starting pieces up. The constructor should only set itself up with an empty array
 
 
 
