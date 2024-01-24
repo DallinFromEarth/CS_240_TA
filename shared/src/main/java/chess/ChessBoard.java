@@ -2,6 +2,7 @@ package chess;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 
 import static chess.ChessGame.TeamColor.BLACK;
@@ -55,6 +56,58 @@ public class ChessBoard {
         int row = position.getRow() - 1;
         int col = position.getColumn() - 1;
         return board[row][col];
+    }
+
+    /**
+     * returns the chess position of the king of the specified color
+     * @param team
+     * @return the position of the king if found for that team. null if the king somehow isn't found
+     */
+    public ChessPosition findKing(ChessGame.TeamColor team) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                ChessPiece piece = board[row][col];
+                if (piece != null) {
+                    if (board[row][col].getPieceType() == ChessPiece.PieceType.KING && board[row][col].getTeamColor() == team) {
+                        return new ChessPosition(row + 1, col + 1);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * checks to see the piece at the passed in position can be captured by the other team by any piece on the board.
+     * @param positionToCapture
+     * @return TRUE if the opposite team can capture the piece. FALSE if the opposite team can't, or there is no piece at that position
+     */
+    public boolean canBeCaptured(ChessPosition positionToCapture) {
+        if (getPiece(positionToCapture) == null) { return false; }
+        ChessGame.TeamColor team = getPiece(positionToCapture).getTeamColor();
+
+        HashSet<ChessMove> moves;
+
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                ChessPosition here = new ChessPosition(row + 1, col + 1);
+                ChessPiece piece = getPiece(here);
+
+                //if there is nothing here, keep looking
+                if (piece == null) { continue; }
+
+                //if the piece here is the same as the piece passed it, keep looking. A white piece can't capture another white piece
+                if (piece.getTeamColor() == team) { continue; }
+
+                moves = (HashSet<ChessMove>) piece.pieceMoves(this, here);
+                for (ChessMove move : moves) {
+                    //this piece can capture the passed in piece, then return true
+                    if (move.getEndPosition().equals(positionToCapture) ) { return true; }
+                }
+            }
+        }
+        return false;
     }
 
     /**
