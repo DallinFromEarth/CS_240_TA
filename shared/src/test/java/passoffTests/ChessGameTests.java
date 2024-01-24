@@ -510,6 +510,12 @@ public class ChessGameTests {
                 "White is in a stalemate but isInStalemate returned false");
         Assertions.assertFalse(game.isInStalemate(ChessGame.TeamColor.BLACK),
                 "Black is not in a stalemate but isInStalemate returned true");
+        /**
+         * MY OWN ASSERT STATEMENT
+         * this makes sure that isInCheckmate and isInStalemate are different
+         */
+        Assertions.assertFalse(game.isInCheckmate(ChessGame.TeamColor.WHITE),
+                "White is not in checkmate, but isInCheckmate returned true. Checkmate and stalemate are different");
     }
 
 
