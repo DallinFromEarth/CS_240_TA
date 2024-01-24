@@ -162,15 +162,15 @@ public class ChessGame {
                 ChessPosition curPosition = new ChessPosition(row,col);
                 ChessPiece curPiece = board.getPiece(curPosition);
 
-                if (curPiece.getTeamColor() == teamColor) { // we only care about moves we can make
+                if (curPiece != null && curPiece.getTeamColor() == teamColor) { // we only care about moves we can make
                     allTheMoves.addAll( curPiece.pieceMoves(board,curPosition) );
                 }
             }
         }
 
+        allTheMoves = removeIllegalMoves(allTheMoves);
 
-
-        throw new RuntimeException("NOT IMPLEMENTED");
+        return allTheMoves.isEmpty(); //if there are no legal moves, then we are in checkmate
     }
 
     /**
