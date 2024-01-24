@@ -25,6 +25,8 @@ I'm a new TA for CS 240, and they changed the course project since I took the cl
   - fixed by making sure that I wasn't iterating through my hashset in validMoves() at the same time that I was removing invalid moves from that hashset
 - Test cases assume that you aren't in check if there is no king on the board at all
 - Remember to promote your pawns
+- Test cases all you to pass with identical functioning of isInStalemate() and isInCheckmate()
+  - don't be a loser. make sure you are checking if you're in check when doing isInCheckmate()
 
 
 
