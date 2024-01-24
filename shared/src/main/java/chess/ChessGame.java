@@ -154,6 +154,23 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
+        if (!isInCheck(teamColor)) { //if we're not in check, by definition we aren't in checkmate
+            return false;
+        }
+
+        return isInStalemate(teamColor); //if we're in check, and in stalemate, then we are in checkmate
+    }
+
+    /**
+     * Determines if the given team is in stalemate, which here is defined as having
+     * no valid moves
+     * SIGNATURE DEFINED BY COURSE!
+     *
+     * @param teamColor which team to check for stalemate
+     * @return True if the specified team is in stalemate, otherwise false
+     */
+    public boolean isInStalemate(TeamColor teamColor) {
+        //if there are no legal moves, then we are in checkmate
         HashSet<ChessMove> allTheMoves = new HashSet<ChessMove>();
 
         // Get every possible move that we could make
@@ -170,19 +187,7 @@ public class ChessGame {
 
         allTheMoves = removeIllegalMoves(allTheMoves);
 
-        return allTheMoves.isEmpty(); //if there are no legal moves, then we are in checkmate
-    }
-
-    /**
-     * Determines if the given team is in stalemate, which here is defined as having
-     * no valid moves
-     * SIGNATURE DEFINED BY COURSE!
-     *
-     * @param teamColor which team to check for stalemate
-     * @return True if the specified team is in stalemate, otherwise false
-     */
-    public boolean isInStalemate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        return allTheMoves.isEmpty();
     }
 
     /**
