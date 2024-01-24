@@ -228,4 +228,28 @@ public class ChessBoard {
         result = 31 * result + Arrays.hashCode(board);
         return result;
     }
+
+    public void setBoard(ChessPiece[][] array) {
+        board = array;
+    }
+
+    /**
+     * duplicate the board
+     * @return an independent identical board
+     */
+    public ChessBoard duplicate() {
+        ChessBoard newBoard = new ChessBoard();
+        newBoard.setBoard(duplicateBoardArray());
+        return newBoard;
+    }
+
+    private ChessPiece[][] duplicateBoardArray() {
+        ChessPiece[][] newArray = new ChessPiece[BOARD_SIZE][BOARD_SIZE];
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                newArray[i][j] = board[i][j];
+            }
+        }
+        return newArray;
+    }
 }

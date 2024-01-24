@@ -68,8 +68,6 @@ public class ChessPiece {
         //using hashmap to avoid duplicate moves
         HashSet<ChessMove> possibleMoves = new HashSet<ChessMove>();
 
-        System.out.println(board.toString()); //TODO: REMOVE
-
         if (type == PieceType.KNIGHT) {
             addKnightMoves(board, myPosition, possibleMoves);
         } else if (type == PieceType.KING) {

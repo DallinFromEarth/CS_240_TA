@@ -56,15 +56,33 @@ public class ChessGame {
      * @return Set of valid moves for requested piece, or null if no piece at
      * startPosition
      */
-//    public Collection<ChessMove> validMoves(ChessPosition startPosition) {
-//        ChessPiece piece = board.getPiece(startPosition);
-//        if (piece == null) { return null; }
-//
-//        HashSet<ChessMove> moves = (HashSet<ChessMove>) piece.pieceMoves(board, startPosition);
-//        for (ChessMove move : moves) {
-//            board.clone();
-//        }
-//    }
+    public Collection<ChessMove> validMoves(ChessPosition startPosition) {
+        ChessPiece piece = board.getPiece(startPosition);
+        if (piece == null) { return null; }
+
+        HashSet<ChessMove> moves = (HashSet<ChessMove>) piece.pieceMoves(board, startPosition);
+        HashSet<ChessMove> badMoves = new HashSet<ChessMove>();
+        for (ChessMove move : moves) {
+            ChessPiece pieceGettingCaptured = board.getPiece(move.endPosition);
+            //test out this move
+            board.addPiece(move.endPosition, board.getPiece(move.startPosition)); //move piece to new spot
+            board.addPiece(move.startPosition, null); //remove piece from old spot
+
+            if (isInCheck(board.getPiece(move.endPosition).getTeamColor())) { // if the team that just moved is in check now:
+                badMoves.add(move); //add to the list of bad moves
+            }
+
+            //put the board back how it was
+            board.addPiece(move.startPosition, board.getPiece(move.endPosition));
+            board.addPiece(move.endPosition, pieceGettingCaptured);
+        }
+
+        for (ChessMove badMove : badMoves) {
+            moves.remove(badMove);
+        }
+
+        return moves;
+    }
 
     /**
      * Makes a move in a chess game
@@ -74,7 +92,32 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
-        throw new RuntimeException("Not implemented");
+        if (board.getPiece(move.startPosition).getTeamColor() != teamTurn) { // if its not this team's turn
+            throw new InvalidMoveException("Not " + teamTurn + "'s turn!");
+        }
+
+        System.out.println(board);
+        Collection<ChessMove> validMoves = validMoves(move.startPosition);
+        if (validMoves.contains(move)) {
+            board.addPiece(move.endPosition, board.getPiece(move.startPosition)); //move piece to new spot
+            board.addPiece(move.startPosition, null); //remove piece from old spot
+
+            nextTurn();
+            System.out.println("\n\nMade move: " + move);
+        } else {
+            System.out.println(("\n\n!Failed move: " + move));
+            throw new InvalidMoveException();
+        }
+    }
+
+    /**
+     * switches the team from black to white, or white to black
+     */
+    private void nextTurn() {
+        switch (teamTurn) {
+            case WHITE -> teamTurn = TeamColor.BLACK;
+            case BLACK -> teamTurn = TeamColor.WHITE;
+        }
     }
 
     /**

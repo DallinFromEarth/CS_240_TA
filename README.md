@@ -20,7 +20,9 @@ I'm a new TA for CS 240, and they changed the course project since I took the cl
 - If things look the same, but the passoff tests aren't saying theyre the same, make sure you overrode equals() and hash()
 - THE GAMEBOARD CONSTRUCTOR SHOULD NOT PUT ANY PIECES ON THE BOARD! Only the function resetBoard() should set all the starting pieces up. The constructor should only set itself up with an empty array
 
-
+### Phase 1
+- Ran into a new runtime error: java.util.ConcurrentModificationException
+  - fixed by making sure that I wasn't iterating through my hashset in validMoves() at the same time that I was removing invalid moves from that hashset
 
 
 
