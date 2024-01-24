@@ -61,6 +61,11 @@ public class ChessGame {
         if (piece == null) { return null; }
 
         HashSet<ChessMove> moves = (HashSet<ChessMove>) piece.pieceMoves(board, startPosition);
+
+        return removeIllegalMoves(moves);
+    }
+
+    private HashSet<ChessMove> removeIllegalMoves(HashSet<ChessMove> moves) {
         HashSet<ChessMove> badMoves = new HashSet<ChessMove>();
         for (ChessMove move : moves) {
             ChessPiece pieceGettingCaptured = board.getPiece(move.endPosition);
@@ -99,7 +104,11 @@ public class ChessGame {
         System.out.println(board);
         Collection<ChessMove> validMoves = validMoves(move.startPosition);
         if (validMoves.contains(move)) {
-            board.addPiece(move.endPosition, board.getPiece(move.startPosition)); //move piece to new spot
+            if ( move.promotionPiece == null ) { //not promoting
+                board.addPiece(move.endPosition, board.getPiece(move.startPosition)); //move piece to new spot
+            } else { // you are promoting a pawn
+                board.addPiece(move.endPosition, new ChessPiece(teamTurn, move.promotionPiece));
+            }
             board.addPiece(move.startPosition, null); //remove piece from old spot
 
             nextTurn();
@@ -129,6 +138,9 @@ public class ChessGame {
      */
     public boolean isInCheck(TeamColor teamColor) {
         ChessPosition kingPosition = board.findKing(teamColor);
+
+        if (kingPosition == null) { return false; } // if there isn't a king on the board, they can't be in check
+
         board.getPiece(kingPosition).pieceMoves(board, kingPosition);
 
         return board.canBeCaptured(kingPosition);
@@ -142,7 +154,23 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        HashSet<ChessMove> allTheMoves = new HashSet<ChessMove>();
+
+        // Get every possible move that we could make
+        for (int row = 1; row <= board.getBoardSize(); row++) {
+            for (int col = 1; col <= board.getBoardSize(); col++) {
+                ChessPosition curPosition = new ChessPosition(row,col);
+                ChessPiece curPiece = board.getPiece(curPosition);
+
+                if (curPiece.getTeamColor() == teamColor) { // we only care about moves we can make
+                    allTheMoves.addAll( curPiece.pieceMoves(board,curPosition) );
+                }
+            }
+        }
+
+
+
+        throw new RuntimeException("NOT IMPLEMENTED");
     }
 
     /**
