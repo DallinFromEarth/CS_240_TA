@@ -28,7 +28,9 @@ I'm a new TA for CS 240, and they changed the course project since I took the cl
 - Test cases all you to pass with identical functioning of isInStalemate() and isInCheckmate()
   - don't be a loser. make sure you are checking if you're in check when doing isInCheckmate()
 
-
+### Phase 3
+- If you're having issues starting the server, add `Spark.init()` near the start of `run()`
+- The red when it starts up are info statements, not errors
 
 
 
