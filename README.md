@@ -31,6 +31,7 @@ I'm a new TA for CS 240, and they changed the course project since I took the cl
 ### Phase 3
 - If you're having issues starting the server, add `Spark.init()` near the start of `run()`
 - The red when it starts up are info statements, not errors
+- Use records for your model classes
 
 
 
